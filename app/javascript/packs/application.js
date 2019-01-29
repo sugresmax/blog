@@ -7,4 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+const Rails = require('rails-ujs');
+Rails.start();
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../stylesheets/style.scss'

@@ -1,0 +1,10 @@
+.login-form.mt-5
+  = form_tag login_path do
+    .form-group.nickname
+      =label_tag :nickname
+      =text_field_tag :nickname, '', class: 'form-control'
+    .form-group.password
+      =label_tag :password
+      =password_field_tag :password, '', class: 'form-control'
+    .actions
+      = submit_tag t('session.login'), class: 'btn btn-primary'
