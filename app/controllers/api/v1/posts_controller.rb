@@ -24,14 +24,14 @@ module Api::V1
           render json: post
         end
       else
-        render json: {}, status: 403
+        render json: {}, status: 401
       end
     end
 
     private
 
     def post_params
-      params.require(:post).permit(:title, :body, :publish_at)
+      params.require(:post).permit(:title, :body, :published_at)
     end
 
   end

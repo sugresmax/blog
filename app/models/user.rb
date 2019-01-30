@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
 
-  validates :nickname, :email, presence: true
+  validates :nickname, :email, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
   after_validation :password_digest_errors_to_password
