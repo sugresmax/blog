@@ -6,5 +6,9 @@ FactoryBot.define do
     body { FFaker::BaconIpsum.sentence }
     user_id { create(:user).id }
     published_at { FFaker::Time.datetime }
+
+    trait :invalid do
+      title nil
+    end
   end
 end
