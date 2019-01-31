@@ -106,6 +106,19 @@ RSpec.describe Api::V1::PostsController, type: :controller do
 
     end
 
+    context 'when post is invalid' do
+
+      let!(:post){ build(:post, :invalid) }
+
+      it 'returns errors' do
+        process :create, method: :post, session: { user_id: user.id },
+                params: { post: post.as_json, format: :json }
+        result = JSON.parse(response.body)
+        expect(result).to have_key('errors')
+      end
+
+    end
+
   end
 
 end

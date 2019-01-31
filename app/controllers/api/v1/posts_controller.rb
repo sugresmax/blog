@@ -22,6 +22,8 @@ module Api::V1
         post.user = current_user
         if post.save
           render json: post
+        else
+          render json: { errors: post.errors.messages }
         end
       else
         render json: {}, status: 401
