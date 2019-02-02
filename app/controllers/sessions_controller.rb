@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render "new"
     else
       user = User.find_by_nickname(params[:nickname])
-      if user.authenticate(params[:password])
+      if user.present? && user.authenticate(params[:password])
         session[:user_id] = user.id
         redirect_to root_path, flash: { notice: t('session.login_successfull') }
       else
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_path
+    redirect_to root_path
   end
 
 end

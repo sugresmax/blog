@@ -6,3 +6,9 @@ en:
     wrong_nickname_or_password: Wrong nickname or password
     login_successfull: Log in successfull
     login: Login
+    logout: Logout
+
+  user:
+    avatar:
+      submit: Save avatar
+      uploaded: Avatar uploaded

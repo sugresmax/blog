@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :homes, path: :home, only: [:index]
+  resources :homes, path: :home, only: [:index, :update]
 
   get 'login', controller: :sessions, action: :new, as: :new_session
   post 'login', controller: :sessions, action: :create, as: :login

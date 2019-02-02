@@ -4,7 +4,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 
-  storage :fog
+  storage Rails.env.production? ? :fog : :file
 
   version :thumb do
     process resize_to_fill: [300, 300]

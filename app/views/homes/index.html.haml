@@ -1,1 +1,26 @@
 %h1 Home
+
+-if user_signed_in?
+
+  .mb-5
+    =link_to t('session.logout'), logout_path, method: :delete, class: 'btn btn-danger'
+    %hr
+
+  -if current_user.avatar.present?
+    .uploaded_avatar.mb-5
+      = link_to current_user.avatar.url, target: '_blank' do
+        =image_tag current_user.avatar.thumb.url
+
+  .upload_avatar
+    =form_for current_user, url: home_path(current_user) do |f|
+      -@user.errors.full_messages.each do |message|
+        .error= message
+      .form-group
+        =label_tag :avatar
+        =f.file_field :avatar, class: 'form-control-file'
+
+      .actions
+        = submit_tag t('user.avatar.submit'), class: 'btn btn-primary'
+
+-else
+  =link_to t('session.login'), login_path, class: 'btn btn-success'
