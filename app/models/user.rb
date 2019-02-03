@@ -14,6 +14,19 @@ class User < ApplicationRecord
 
   after_validation :password_digest_errors_to_password
 
+  def self.report(start_date, end_date)
+    start_date = Time.parse start_date
+    end_date = Time.parse end_date
+    User.joins(:posts, :comments).
+        select('users.id, nickname, email, posts_count, comments_count, (posts_count + comments_count / 10.0) AS weight').
+        where('comments.published_at > ?', start_date).
+        where('comments.published_at < ?', end_date).
+        where('posts.published_at > ?', start_date).
+        where('posts.published_at < ?', end_date).
+        group('users.id').
+        order('posts_count + comments_count / 10.0')
+  end
+
   private
 
   def password_digest_errors_to_password

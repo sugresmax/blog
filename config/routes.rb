@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :posts, only: [:index, :show, :create]
+      namespace :reports do
+        resources :by_authors, path: :by_author, only: [:create]
+      end
     end
   end
 
