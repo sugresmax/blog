@@ -1,0 +1,14 @@
+%table
+  %thead
+    %tr
+      %td nickname
+      %td email
+      %td posts count
+      %td comments count
+  %tbody
+    -@users.each do |user|
+      %tr
+        %td= user.nickname
+        %td= user.email
+        %td= user.posts_count
+        %td= user.comments_count
