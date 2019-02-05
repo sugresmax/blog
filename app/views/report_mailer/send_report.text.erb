@@ -1,4 +1,4 @@
 |nickname|email|posts count|comments count|
 <% @users.each do |user| %>
-|<%= user.nickname %>|<%= user.email %>|<%= user.posts_count %>|<%= user.comments_count %>|
+|<%= user['nickname'] %>|<%= user['email'] %>|<%= user['posts_count'] %>|<%= user['comments_count'] %>|
 <% end %>

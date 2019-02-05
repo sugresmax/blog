@@ -34,6 +34,10 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  config.active_job.queue_adapter = :sidekiq
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

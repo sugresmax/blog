@@ -17,14 +17,20 @@ class User < ApplicationRecord
   def self.report(start_date, end_date)
     start_date = Time.parse start_date
     end_date = Time.parse end_date
-    User.joins(:posts, :comments).
-        select('users.id, nickname, email, posts_count, comments_count, (posts_count + comments_count / 10.0) AS weight').
-        where('comments.published_at > ?', start_date).
-        where('comments.published_at < ?', end_date).
-        where('posts.published_at > ?', start_date).
-        where('posts.published_at < ?', end_date).
-        group('users.id').
-        order('posts_count + comments_count / 10.0')
+    sql = Arel.sql(
+        "SELECT users.id, users.nickname, users.email,
+      (SELECT COUNT(*) FROM posts where users.id = posts.user_id) AS posts_count,
+      (SELECT COUNT(*) FROM comments where users.id = comments.user_id) AS comments_count,
+      ((SELECT COUNT(*) FROM posts where users.id = posts.user_id) + (SELECT COUNT(*) FROM comments where users.id = comments.user_id) / 10.0) AS weight
+      from users
+      LEFT OUTER JOIN comments ON comments.user_id = users.id
+      LEFT OUTER JOIN posts ON posts.user_id = users.id
+      where (comments.published_at > '#{start_date}') AND (comments.published_at < '#{end_date}')
+      OR (posts.published_at > '#{start_date}') AND (posts.published_at < '#{end_date}')
+      group by users.id
+      order by weight desc"
+    )
+    ActiveRecord::Base.connection.exec_query(sql).to_hash
   end
 
   private

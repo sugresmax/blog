@@ -1,6 +1,6 @@
 module Api::V1::Reports
 
-  class ByAuthorsController < BaseController
+  class ByAuthorsController < Api::V1::BaseController
 
     def create
       render json: { message: 'Report generation started' }

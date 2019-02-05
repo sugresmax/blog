@@ -8,7 +8,7 @@ FactoryBot.define do
     published_at { FFaker::Time.datetime }
 
     trait :invalid do
-      title nil
+      title { nil }
     end
   end
 end

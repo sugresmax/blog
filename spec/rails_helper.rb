@@ -7,6 +7,9 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
 
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
